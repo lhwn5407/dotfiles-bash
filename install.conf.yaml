@@ -1,7 +1,81 @@
+- defaults:
+    link:
+        create: true
+        relink: true
+
+- shell:
+    -
+        description: install Oh My Zsh dependency -> wget, git, zsh
+        command: |
+            bash -c '
+            # multi-distro support
+            declare -A osInfo;
+            osInfo[/etc/debian_version]="sudo apt-get install -y"
+            osInfo[/etc/alpine-release]="sudo apk --update add"
+            osInfo[/etc/centos-release]="sudo yum install -y"
+            osInfo[/etc/fedora-release]="sudo dnf install -y"
+
+            for f in ${!osInfo[@]}
+                do
+                if [[ -f $f ]];then
+                    package_manager=${osInfo[$f]}
+                fi
+            done
+
+            if ! which wget
+            then
+                # install wget
+                ${package_manager} wget
+            fi
+
+            if ! which git
+            then
+                # install git
+                ${package_manager} git
+            fi
+
+            if ! which zsh
+            then
+                # install zsh
+                ${package_manager} zsh
+            fi
+            '
+        stdin: true
+        stdout: true
+        stderr: true
+    - 
+        description: install Oh My Zsh.
+        command: |
+            bash -c '
+            ZSH=${ZSH:-~/.oh-my-zsh}
+            if [ -d "$ZSH" ]; then
+                cat <<-EOF
+            You already have Oh My Zsh installed.
+            You will need to remove $ZSH if you want to reinstall.
+            EOF
+            else
+                if which wget
+                then 
+                    sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+                else
+                    echo "wget not found. wget is necessery to proceed."
+                fi
+            fi'
+        stdin: true
+        stdout: true
+        stderr: true
+
 - clean: ['~']
 
 - link:
-    ~/.vimrc: vimrc
-    ~/.zshrc: zshrc
+    ~/.vimrc:
+        force: true
+        path: vimrc
+    ~/.zshrc:
+        force: true
+        path: zshrc
+    ~/.oh-my-zsh/custom/custom-ls.zsh: oh-my-zsh/custom/custom-ls.zsh
 
-
+- shell:
+    - git submodule sync --recursive
+    - git submodule update --init --remote
