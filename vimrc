@@ -35,7 +35,7 @@ set display=truncate    "행이 너무 길어서 생략됐을때 @@@ 표시
 set title               "타이틀 바에 현재 편집중인 파일 표시
 set ruler               "현재 커서 위치를 화면 우측 하단에 표시
 "set cursorline          "현재 라인 강조
-set number              "줄 번호 표시
+"set number              "줄 번호 표시
 "highlight LineNr ctermfg=black ctermbg=DarkGray
 "highlight CursorLineNr ctermfg=DarkGray ctermbg=black
 "set numberwidth=8       "줄 번호 너비
