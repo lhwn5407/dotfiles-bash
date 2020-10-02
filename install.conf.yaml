@@ -5,19 +5,20 @@
 
 - clean: ['~']
 
+- shell:
+    - touch ~/.bash_local
+    - if [ ! -d ~/.vim ]; then mkdir ~/.vim; fi
+    - if [ ! -d ~/.vim/ftdetect ]; then mkdir ~/.vim/ftdetect; fi
+
 - link:
+    ~/.vim/ftdetect/bash_local.vim: vim/ftdetect/bash_local.vim
     ~/.vimrc:
         force: true
-        path: vimrc
     ~/.bashrc:
         force: true
-        path: bashrc
-    ~/.bash_aliases:
-        force: true
-        path: bash_aliases
+    ~/.bash_aliases: bash_aliases
     ~/.gitconfig:
         force: true
-        path: gitconfig
 
 - shell:
     - git submodule sync --recursive
