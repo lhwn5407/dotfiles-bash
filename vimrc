@@ -47,6 +47,10 @@ set showmatch           "괄호 짝 강조
 set showmode            "모드 변환시 화면에 표시
 set showcmd             "입력 명령 표시
 
+set mouse=v             "특정 배포판에서 mouse=a 로 설정하여 복사&붙여넣기가 안될 수 있으므로
+                        "Visual mode 로 변경. -> 두번 클릭시 단어선택, 세번
+                        "클릭시 라인 선택
+
 
 """
 """ 텍스트 포매팅 / 레이아웃
