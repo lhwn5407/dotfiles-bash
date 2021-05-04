@@ -1,6 +1,3 @@
-[user]
-	name = lhwn5407
-	email = lhwn5407@naver.com
 [core]
 	editor = vim
 # Allow local customizations in the .gitconfig_local file
